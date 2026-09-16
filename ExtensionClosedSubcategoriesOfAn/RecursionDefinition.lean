@@ -12,7 +12,7 @@ These are as follows:
 For the sequence `a` the recursive definition is:
 `a 0 0 = 1`
 `a 0 1 = 1`
-`a 0 (k + 2) = 1` for all `k : ℕ`
+`a 0 (k + 2) = 0` for all `k : ℕ`
 
 `a (n + 1) 0 = ∑ i ∈ Finset.Icc 0 (n + 1), a n i`
 `a (n + 1) (k + 1) = a n k + ∑ q ∈ Finset.Icc k (n + 1), b n q + ∑ m ∈ (Finset.Icc 1 n),`

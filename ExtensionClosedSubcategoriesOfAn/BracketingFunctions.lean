@@ -76,7 +76,7 @@ deriving Decidable
 lemma IsBracketing.self_le {a : Fin n → Fin n} (ha : a.IsBracketing) (i : Fin n) : i ≤ a i :=
   ha.1 i
 lemma IsBracketing.apply_le {a : Fin n → Fin n} (ha : a.IsBracketing) (i j) (hij : i ≤ j)
-    (hj : j ≤ a i) : a j ≤ a i := ha.2 i j hij hj
+    (hjai : j ≤ a i) : a j ≤ a i := ha.2 i j hij hjai
 
 lemma IsBracketing.apply_last {a : Fin (n + 1) → Fin (n + 1)} (ha : a.IsBracketing) :
     a (Fin.last n) = Fin.last n := le_antisymm (Fin.le_last _) (ha.self_le _)
