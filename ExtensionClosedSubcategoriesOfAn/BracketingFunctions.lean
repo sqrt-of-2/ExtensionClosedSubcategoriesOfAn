@@ -217,7 +217,7 @@ lemma Function.IsBracketing.rootIndex_bracketingNode {b : Fin k → Fin k} {c : 
 lemma Function.IsBracketing.cast {m : ℕ} (h : m = n) {a : Fin m → Fin m} (ha : a.IsBracketing) :
     (fun i ↦ Fin.cast h (a (Fin.cast h.symm i))).IsBracketing :=
   ⟨fun i ↦ by grind [ha.self_le (Fin.cast h.symm i)],
-   fun i j hij hja ↦ by simpa using ha.apply_le _ _ hij (Fin.le_def.mpr hja)⟩
+    fun i j hij hja ↦ by simpa using ha.apply_le _ _ hij (Fin.le_def.mpr hja)⟩
 
 lemma isBracketing_cast {k : Fin (n + 1)} {b : Fin k → Fin k} {c : Fin (n - k) → Fin (n - k)}
     (hb : b.IsBracketing) (hc : c.IsBracketing) :
@@ -293,11 +293,11 @@ def bracketingFunctionsSuccEquiv : BracketingFunctions (n + 1) ≃ Σ k : Fin (n
     BracketingFunctions k × BracketingFunctions (n - k) where
   toFun := fun ⟨a, ha⟩ ↦
     ⟨ha.rootIndex,
-     ⟨bracketingLeft ha, isBracketing_bracketingLeft ha⟩,
-     ⟨bracketingRight ha, isBracketing_bracketingRight ha⟩⟩
+      ⟨bracketingLeft ha, isBracketing_bracketingLeft ha⟩,
+      ⟨bracketingRight ha, isBracketing_bracketingRight ha⟩⟩
   invFun := fun ⟨k, ⟨b, hb⟩, ⟨c, hc⟩⟩ ↦
     ⟨fun i ↦ Fin.cast (by lia) (bracketingNode b c (Fin.cast (by lia) i)),
-     isBracketing_cast hb hc⟩
+      isBracketing_cast hb hc⟩
   left_inv := by
     rintro ⟨a, ha⟩
     ext ⟨i, hi⟩
@@ -388,7 +388,7 @@ instance instLatticeBracketingFunctions : Lattice (BracketingFunctions n) where
 -- The Tamari lattice is not distributive.
 example : ¬ ∀ x y z : BracketingFunctions 3, x ⊓ (y ⊔ z) = (x ⊓ y) ⊔ (x ⊓ z) := by
   intro h
-  have := h ⟨![2,1,2], by decide⟩ ⟨![0,2,2], by decide⟩ ⟨![1,1,2], by decide⟩
+  have := h ⟨![2, 1, 2], by decide⟩ ⟨![0, 2, 2], by decide⟩ ⟨![1, 1, 2], by decide⟩
   revert this
   decide
 

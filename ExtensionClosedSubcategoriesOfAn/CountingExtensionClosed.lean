@@ -54,7 +54,7 @@ def card_ext_closed_containing_proj_inj (n : ℕ) : ℕ := (ext_closed_sets_cont
 finite-dimensional representations of the uniformly oriented `A_n`-quiver containing precisely `k`
 indecomposable projective representations. In the paper, it is denoted by $\mathcal{R}(n)_k$. -/
 def ext_closed_sets_with_specified_number_projectives (n k : ℕ) :
-  Finset (Finset (higher_nakayama_convention n)) :=
+    Finset (Finset (higher_nakayama_convention n)) :=
   (ext_closed_sets n).filter (fun Y ↦ (Y.filter (fun p ↦ p.1.1 = 0)).card = k)
 
 lemma mem_ext_closed_sets_with_specified_number_projectives {n k : ℕ}
@@ -74,7 +74,7 @@ finite-dimensional representations of the uniformly oriented `A_n`-quiver contai
 indecomposable projective-injective and containing precisely `k` indecomposable projective
 representations. In the paper, it is denoted by $\mathcal{P}(n)_k$. -/
 def ext_closed_sets_containing_proj_inj_with_specified_number_projectives (n k : ℕ) :
-  Finset (Finset (higher_nakayama_convention n)) :=
+    Finset (Finset (higher_nakayama_convention n)) :=
   (ext_closed_sets_containing_proj_inj n).filter (fun Y => (Y.filter (fun p => p.1.1 = 0)).card = k)
 
 /-- The number of all extension-closed, additive, idempotent split subcategories of the category of
@@ -85,32 +85,32 @@ def card_ext_closed_sets_containing_proj_inj_with_specified_number_projectives (
 
 /-- R(0)_0 = 1. -/
 lemma card_ext_closed_sets_with_specified_number_projectives_zero_zero :
-  card_ext_closed_sets_with_specified_number_projectives 0 0 = 1 := by
+    card_ext_closed_sets_with_specified_number_projectives 0 0 = 1 := by
   decide
 
 /-- R(0)_1 = 1. -/
 lemma card_ext_closed_sets_with_specified_number_projectives_zero_one :
-  card_ext_closed_sets_with_specified_number_projectives 0 1 = 1 := by
+    card_ext_closed_sets_with_specified_number_projectives 0 1 = 1 := by
   decide
 
 def projectives_in_univ (n : ℕ) :
-  Fin (n + 1) ≃
+    Fin (n + 1) ≃
     ((Finset.univ : Finset (higher_nakayama_convention n)).filter (fun p => p.1.1 = 0)) :=
-  { toFun := fun i ↦ ⟨⟨(0,i), by grind [mem_higher_nakayama_convention_iff]⟩, by simp⟩
+  { toFun := fun i ↦ ⟨⟨(0, i), by grind [mem_higher_nakayama_convention_iff]⟩, by simp⟩
     invFun := fun p ↦ ⟨p.1.1.2, by grind [mem_higher_nakayama_convention_iff]⟩
     left_inv := by grind
     right_inv := by grind
   }
 
 lemma cardinality_projectives_in_univ (n : ℕ) :
-  ((Finset.univ : Finset (higher_nakayama_convention n)).filter (fun p => p.1.1 = 0)).card
+    ((Finset.univ : Finset (higher_nakayama_convention n)).filter (fun p => p.1.1 = 0)).card
     = n + 1 := by
   simpa only [Fintype.card_fin, Fintype.card_coe] using
     (Fintype.card_congr (projectives_in_univ n)).symm
 
 /-- $\mathcal{R}(n)_k$ and $\mathcal{R}(n)_l$ are disjoint. -/
 lemma disjoint_with_specified_projectives_of_number_projectives_differs {n k l : ℕ} (h : k ≠ l) :
-  Disjoint (ext_closed_sets_with_specified_number_projectives n k)
+    Disjoint (ext_closed_sets_with_specified_number_projectives n k)
     (ext_closed_sets_with_specified_number_projectives n l) := by
   rw [disjoint_left]
   intro Y hk hl
@@ -119,7 +119,7 @@ lemma disjoint_with_specified_projectives_of_number_projectives_differs {n k l :
 
 /-- $\mathcal{R}(n)=\bigcup_{k=0}^{n+1} \mathcal{R}(n)_k$. -/
 lemma ext_closed_sets_eq_biUnion (n : ℕ) :
-  ext_closed_sets n =
+    ext_closed_sets n =
     (Finset.range (n + 2)).biUnion (ext_closed_sets_with_specified_number_projectives n) := by
   ext Y
   simp only [Finset.mem_biUnion, Finset.mem_range,
@@ -152,9 +152,9 @@ def nonInjectives (n : ℕ) : Finset (higher_nakayama_convention n) :=
 /-- The (combinatorial) AR-translate which defines a bijection between non-projective and
 non-injective modules. -/
 def AR_translate (n : ℕ) : nonProjectives n ≃ nonInjectives n :=
-  { toFun := fun p ↦ ⟨⟨(p.1.1.1-1, p.1.1.2-1), by grind [mem_higher_nakayama_convention_iff]⟩, by
+  { toFun := fun p ↦ ⟨⟨(p.1.1.1 - 1, p.1.1.2 - 1), by grind [mem_higher_nakayama_convention_iff]⟩, by
                           grind [mem_higher_nakayama_convention_iff, nonProjectives, nonInjectives]⟩
-    invFun := fun p ↦ ⟨⟨(p.1.1.1+1, p.1.1.2+1), by
+    invFun := fun p ↦ ⟨⟨(p.1.1.1 + 1, p.1.1.2 + 1), by
                           grind [mem_higher_nakayama_convention_iff, nonInjectives]⟩, by
                           grind [mem_higher_nakayama_convention_iff, nonProjectives, nonInjectives]⟩
     left_inv := by grind [mem_higher_nakayama_convention_iff, nonProjectives]
@@ -188,17 +188,17 @@ lemma ext_interlace_NP_iff {n : ℕ} (p q : nonProjectives (n + 1)) :
   grind [NonProjective_equiv_convention, mem_higher_nakayama_convention_iff, ext_interlace]
 
 lemma hshort_NP_iff {n : ℕ} (p q : nonProjectives (n + 1)) :
-  (NonProjective_equiv_convention n p).1.1 ≤ (NonProjective_equiv_convention n q).1.2 ↔
+    (NonProjective_equiv_convention n p).1.1 ≤ (NonProjective_equiv_convention n q).1.2 ↔
     p.1.1.1 ≤ q.1.1.2 := by
   grind [NonProjective_equiv_convention]
 
 lemma long_extension_equiv {n : ℕ} {p q : nonProjectives (n + 1)} (hpq : ext_interlace p.1 q.1) :
-  NonProjective_equiv_convention n ⟨long_extension hpq, by grind [nonProjectives, long_extension]⟩ =
+    NonProjective_equiv_convention n ⟨long_extension hpq, by grind [nonProjectives, long_extension]⟩ =
     long_extension ((ext_interlace_NP_iff p q).mpr hpq) := by
   simp [NonProjective_equiv_convention, long_extension]
 
 lemma short_extension_equiv {n : ℕ} {p q : nonProjectives (n + 1)} (hshort : p.1.1.1 ≤ q.1.1.2) :
-  NonProjective_equiv_convention n ⟨short_extension hshort, by
+    NonProjective_equiv_convention n ⟨short_extension hshort, by
     grind [nonProjectives, short_extension]⟩ =
     short_extension ((hshort_NP_iff p q).mpr hshort) := by
   grind [NonProjective_equiv_convention, short_extension]
@@ -231,7 +231,7 @@ lemma toNonProjectives_fromNonProjectives {n : ℕ} (S : Finset (nonProjectives 
   simp [fromNonProjectives]
 
 lemma map_equiv_symm {α β} (e : α ≃ β) (S : Finset α) :
-  (S.map e.toEmbedding).map e.symm.toEmbedding = S := by
+    (S.map e.toEmbedding).map e.symm.toEmbedding = S := by
   ext x; simp
 
 lemma map_symm_equiv {α β} (e : α ≃ β) (S : Finset β) :
@@ -239,7 +239,7 @@ lemma map_symm_equiv {α β} (e : α ≃ β) (S : Finset β) :
   ext x; simp
 
 def ext_closed_succ_without_projectives_equiv_ext_closed (n : ℕ) :
-  ↥ (ext_closed_sets_with_specified_number_projectives (n + 1) 0) ≃ ↥ (ext_closed_sets n) :=
+    ↥ (ext_closed_sets_with_specified_number_projectives (n + 1) 0) ≃ ↥ (ext_closed_sets n) :=
   { toFun := fun Y ↦ ⟨(toNonProjectives Y).map (NonProjective_equiv_convention n).toEmbedding, by
       rw [mem_ext_closed_sets]
       intro p' hp' q' hq' hpq'
@@ -293,7 +293,7 @@ def ext_closed_succ_without_projectives_equiv_ext_closed (n : ℕ) :
             simpa [r] using congrArg (NonProjective_equiv_convention n).symm
               (short_extension_equiv hshort)
         · rw [card_eq_zero, filter_eq_empty_iff]
-          rintro ⟨⟨a,b⟩,hab⟩ hp hzero
+          rintro ⟨⟨a, b⟩, hab⟩ hp hzero
           simp only at hzero
           simp [hzero, fromNonProjectives, nonProjectives] at hp⟩
     left_inv := by
@@ -316,7 +316,7 @@ card_ext_closed_sets_with_specified_number_projectives (n + 1) 0
 
 /-- $P(n)_0 = 0$. -/
 theorem card_ext_closed_sets_containing_proj_inj_with_specified_number_projectives_zero (n : ℕ) :
-  card_ext_closed_sets_containing_proj_inj_with_specified_number_projectives n 0 = 0 := by
+    card_ext_closed_sets_containing_proj_inj_with_specified_number_projectives n 0 = 0 := by
   rw [card_ext_closed_sets_containing_proj_inj_with_specified_number_projectives, card_eq_zero,
     eq_empty_iff_forall_notMem]
   intro Y hY
@@ -331,7 +331,7 @@ theorem card_ext_closed_sets_containing_proj_inj_with_specified_number_projectiv
 
 /-- P(0)_1 = 1. -/
 lemma card_ext_closed_sets_containing_proj_inj_with_specified_number_projectives_zero_one :
-  card_ext_closed_sets_containing_proj_inj_with_specified_number_projectives 0 1 = 1 := by
+    card_ext_closed_sets_containing_proj_inj_with_specified_number_projectives 0 1 = 1 := by
   decide
 
 /-- $\mathcal{P}(n)_k$ and $\mathcal{P}(n)_l$ are disjoint. -/

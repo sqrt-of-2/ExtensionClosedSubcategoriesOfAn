@@ -51,17 +51,17 @@ which is given by `ab(n)=(a(n,-), b(n,-))`. The expression `Finset.Icc l m` deno
 def ab : ℕ → (ℕ → ℕ) × (ℕ → ℕ)
   | 0 =>
       (fun | 0 => 1 | 1 => 1 | _ + 2 => 0,
-       fun | 0 => 0 | 1 => 1 | _ + 2 => 0)
+        fun | 0 => 0 | 1 => 1 | _ + 2 => 0)
   | n + 1 =>
       ((fun
-        | 0 => ∑ i ∈ Finset.Icc 0 (n + 1), (ab   n).1 i
+        | 0 => ∑ i ∈ Finset.Icc 0 (n + 1), (ab n).1 i
         | k + 1 =>
           ((ab n).1 k + ∑ q ∈ Finset.Icc k (n + 1), (ab n).2 q +
             ∑ m ∈ (Finset.Icc 1 n).attach, ∑ r ∈ Finset.Icc 0 (min m.1 k),
               (ab (m.1 - 1)).1 r * ∑ q ∈ Finset.Icc (k - r) (n - m.1 + 1), (ab (n - m.1)).2 q) +
               (ab n).2 (k + 1) + ∑ m ∈ (Finset.Icc 1 n).attach, (ab (m.1 - 1)).2 (k + 1) *
                   ∑ i ∈ Finset.Icc 0 (n - m.1 + 1), (ab (n - m.1)).1 i),
-       (fun
+        (fun
         | 0 => 0
         | k + 1 =>
           (ab n).1 k + ∑ q ∈ Finset.Icc k (n + 1), (ab n).2 q +
