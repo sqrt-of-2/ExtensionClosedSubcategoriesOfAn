@@ -20,13 +20,13 @@ lemma mem_intervall_modules_convention_iff (n : ℕ) (p : ℕ × ℕ) :
   p ∈ intervall_modules_convention n ↔
     1 ≤ p.1 ∧ p.1 ≤ p.2 ∧ p.2 ≤ n + 1 := by
   simp only [intervall_modules_convention, product_eq_sprod, mem_filter, mem_product, mem_range]
-  omega
+  lia
 
 lemma mem_mazorchuk_convention_iff (n : ℕ) (p : ℕ × ℕ) :
   p ∈ mazorchuk_convention n ↔
     p.1 + p.2 ≤ n := by
   simp only [mazorchuk_convention, product_eq_sprod, mem_filter, mem_product, mem_range]
-  omega
+  lia
 
 def iv_equiv_hn {n : ℕ} :
   ↥ (intervall_modules_convention n) ≃ ↥ (higher_nakayama_convention n) :=
@@ -35,25 +35,23 @@ def iv_equiv_hn {n : ℕ} :
         rw [mem_intervall_modules_convention_iff] at hp
         simp only [higher_nakayama_convention, product_eq_sprod, mem_filter, mem_product,
           mem_range]
-        omega⟩
+        lia⟩
       invFun := fun p ↦ ⟨(n + 1 - p.1.2, n + 1 - p.1.1), by
         rcases p with ⟨p,hp⟩
         rw [mem_higher_nakayama_convention_iff] at hp
         simp only [intervall_modules_convention, product_eq_sprod, mem_filter, mem_product,
           mem_range]
-        omega⟩
+        lia⟩
       left_inv := by
         rintro ⟨p, hp⟩
         rw [mem_intervall_modules_convention_iff] at hp
         simp only [Subtype.mk.injEq]
-        ext <;>
-        omega
+        grind
       right_inv := by
         rintro ⟨p, hp⟩
         rw [mem_higher_nakayama_convention_iff] at hp
         simp only [Subtype.mk.injEq]
-        ext <;>
-        omega
+        grind
     }
 
 def hn_equiv_mc {n : ℕ} :
@@ -62,24 +60,22 @@ def hn_equiv_mc {n : ℕ} :
       rcases p with ⟨p,hp⟩
       rw [mem_higher_nakayama_convention_iff] at hp
       simp only [mazorchuk_convention, product_eq_sprod, mem_filter, mem_product, mem_range]
-      omega⟩
+      lia⟩
     invFun := fun p ↦ ⟨(p.1.1, n - p.1.2), by
       rcases p with ⟨p,hp⟩
       rw [mem_mazorchuk_convention_iff] at hp
       simp [higher_nakayama_convention]
-      omega⟩
+      lia⟩
     left_inv := by
       rintro ⟨p, hp⟩
       rw [mem_higher_nakayama_convention_iff] at hp
       simp only [Subtype.mk.injEq]
-      ext <;>
-      omega
+      grind
     right_inv := by
       rintro ⟨p, hp⟩
       rw [mem_mazorchuk_convention_iff] at hp
       simp only [Subtype.mk.injEq]
-      ext <;>
-      omega
+      grind
   }
 
 lemma max_le_min_add_one_iff_max_add_max_le_succ {n : ℕ} (p q : higher_nakayama_convention n) :

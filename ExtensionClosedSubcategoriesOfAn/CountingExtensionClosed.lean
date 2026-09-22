@@ -36,7 +36,7 @@ def card_ext_closed_sets (n : ℕ) : ℕ := (ext_closed_sets n).card
 /-- The index of the unique indecomposable projective-injective module for the uniformly oriented
 `A_n`-quiver. -/
 def ind_proj_inj (n : ℕ) : higher_nakayama_convention n :=
-⟨(0, n), by rw [mem_higher_nakayama_convention_iff]; omega⟩
+⟨(0, n), by rw [mem_higher_nakayama_convention_iff]; lia⟩
 
 /-- The set of all extension-closed, additive, idempotent split subcategories of the category of
 finite-dimensional representations of the uniformly oriented `A_n`-quiver containing the
@@ -115,7 +115,7 @@ lemma disjoint_with_specified_projectives_of_number_projectives_differs {n k l :
   rw [disjoint_left]
   intro Y hk hl
   simp only [ext_closed_sets_with_specified_number_projectives, mem_filter] at hk hl
-  omega
+  lia
 
 /-- $\mathcal{R}(n)=\bigcup_{k=0}^{n+1} \mathcal{R}(n)_k$. -/
 lemma ext_closed_sets_eq_biUnion (n : ℕ) :
@@ -128,7 +128,7 @@ lemma ext_closed_sets_eq_biUnion (n : ℕ) :
   have h := Finset.card_le_card
     (Finset.filter_subset_filter (fun p => p.1.1 = 0) (Finset.subset_univ Y))
   rw [cardinality_projectives_in_univ] at h
-  omega
+  lia
 
 /-- $R(n)=\sum_{k=0}^{n+1} R(n)_k$. -/
 lemma card_ext_closed_sets_eq_sum (n : ℕ) :
@@ -267,13 +267,9 @@ def ext_closed_succ_without_projectives_equiv_ext_closed (n : ℕ) :
           obtain ⟨p, hpY, rfl⟩ := hp'
           obtain ⟨q, hqY, rfl⟩ := hq'
           have hpY' : NonProjective_equiv_convention n p ∈ Y.1 := by
-            obtain ⟨a, ha, hpa⟩ := hpY
-            rw [← hpa, Equiv.apply_symm_apply]
-            exact ha
+            grind
           have hqY' : NonProjective_equiv_convention n q ∈ Y.1 := by
-            obtain ⟨a, ha, hqa⟩ := hqY
-            rw [← hqa, Equiv.apply_symm_apply]
-            exact ha
+            grind
           have hpq := (ext_interlace_NP_iff p q).mpr hpq'
           obtain ⟨hlongY, hshortY⟩ :=
             (mem_ext_closed_sets Y.1).mp Y.2 _ hpY' _ hqY' hpq
@@ -328,12 +324,10 @@ theorem card_ext_closed_sets_containing_proj_inj_with_specified_number_projectiv
     at hY
   rcases hY with ⟨hY, hcard⟩
   simp only [ext_closed_sets_containing_proj_inj, mem_filter] at hY
-  have hmem : ind_proj_inj n ∈ Y.filter (fun p => p.1.1 = 0) := by
+  have hmem : ind_proj_inj n ∈ Y.filter (fun p ↦ p.1.1 = 0) := by
     simp only [mem_filter]
     exact ⟨hY.2, rfl⟩
-  rw [card_eq_zero] at hcard
-  rw [hcard] at hmem
-  contradiction
+  grind
 
 /-- P(0)_1 = 1. -/
 lemma card_ext_closed_sets_containing_proj_inj_with_specified_number_projectives_zero_one :
@@ -349,7 +343,7 @@ lemma disjoint_containing_proj_inj_with_specified_projectives_of_number_projecti
   intro Y hk hl
   simp only [ext_closed_sets_containing_proj_inj_with_specified_number_projectives, mem_filter]
     at hk hl
-  omega
+  lia
 
 /-- $\mathcal{P}(n)=\bigcup_{k=0}^{n+1} \mathcal{P}(n)_k$. -/
 lemma ext_closed_sets_containing_proj_inj_eq_biUnion (n : ℕ) :
@@ -363,7 +357,7 @@ lemma ext_closed_sets_containing_proj_inj_eq_biUnion (n : ℕ) :
   have h := Finset.card_le_card
     (Finset.filter_subset_filter (fun p => p.1.1 = 0) (Finset.subset_univ Y))
   rw [cardinality_projectives_in_univ] at h
-  omega
+  lia
 
 /-- $P(n)=\sum_{k=0}^{n+1} P(n)_k$. -/
 lemma card_ext_closed_sets_containing_proj_inj_eq_sum (n : ℕ) :

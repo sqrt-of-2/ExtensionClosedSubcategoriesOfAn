@@ -70,7 +70,7 @@ def ab : ℕ → (ℕ → ℕ) × (ℕ → ℕ)
 termination_by n => n
 decreasing_by
   all_goals simp only [Nat.succ_eq_add_one, lt_add_iff_pos_right, Order.lt_one_iff]
-  all_goals (have := Finset.mem_Icc.mp m.2; omega)
+  all_goals (have := Finset.mem_Icc.mp m.2; lia)
 
 /-- The sequence `a` specified by the recursion. -/
 def a (n k : ℕ) : ℕ := (ab n).1 k
@@ -129,25 +129,21 @@ lemma ab_triangular_shape (n : ℕ) :
   induction n using Nat.strong_induction_on with
   | _ n ih =>
   intro k hk
-  rcases n with ( _ | n ) <;> rcases k with ( _ | k ) <;> all_goals try simp; omega
-  · cases k <;> simp; omega
+  rcases n with (_ | n) <;> rcases k with (_ | k) <;> all_goals try simp; lia
+  · cases k <;> simp; lia
   · have caseb : b (n + 1) (k + 1) = 0 := by
-      rw [b_succ_succ, (ih n (by omega) k (by omega)).1, zero_add, Finset.sum_eq_zero]
+      rw [b_succ_succ, (ih n (by simp [*]) k (by lia)).1, zero_add, Finset.sum_eq_zero]
       · rw [zero_add, Finset.sum_eq_zero]
         intro m _
         rw [Finset.sum_eq_zero]
         intro r _
         apply mul_eq_zero_of_right
         rw [Finset.sum_eq_zero]
-        intro q _
         grind
-      intro m _
       grind
     refine ⟨?_, caseb⟩
-    · rw [a_succ_succ, caseb, zero_add, (ih n (by omega) (k + 1) (by omega)).2, zero_add,
+    · rw [a_succ_succ, caseb, zero_add, (ih n (by simp [*]) (k + 1) (by lia)).2, zero_add,
         Finset.sum_eq_zero]
-      intro m _
-      apply mul_eq_zero_of_left
       grind
 
 lemma a_triangular_shape (n k : ℕ) (hk : n + 2 ≤ k) : a n k = 0 := by
